@@ -1,0 +1,122 @@
+2026-11-21 22:45:18,317 | INFO | 01 Registrar cliente | C1 · Ana
+2026-11-21 22:45:18,318 | ERROR | 02 Correo inválido
+Traceback (most recent call last):
+  File "/tmp/ipykernel_7403/1010448456.py", line 37, in <cell line: 0>
+    detalle = operar()
+  File "/tmp/ipykernel_7403/1010448456.py", line 5, in <lambda>
+    ("Correo inválido", lambda: s.registrar(s.clientes, Cliente("C2", "Luis", "luis")), DatoInvalido),
+                                                        ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/ipykernel_7403/1149588288.py", line 20, in __init__
+    raise DatoInvalido("El correo debe incluir usuario y dominio.")
+DatoInvalido: El correo debe incluir usuario y dominio.
+2026-11-21 22:45:18,321 | ERROR | 03 Cliente repetido
+Traceback (most recent call last):
+  File "/tmp/ipykernel_7403/1010448456.py", line 37, in <cell line: 0>
+    detalle = operar()
+  File "/tmp/ipykernel_7403/1010448456.py", line 6, in <lambda>
+    ("Cliente repetido", lambda: s.registrar(s.clientes, Cliente("C1", "Ana", "ana@example.org")), OperacionInvalida),
+                                 ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/ipykernel_7403/1583975118.py", line 9, in registrar
+    raise OperacionInvalida(f"El código {entidad.codigo} ya existe.")
+OperacionInvalida: El código C1 ya existe.
+2026-11-21 22:45:18,322 | INFO | 04 Registrar sala | Sala S1
+2026-11-21 22:45:18,322 | ERROR | 05 Tarifa ilegible
+Traceback (most recent call last):
+  File "/tmp/ipykernel_7403/3911494418.py", line 34, in numero
+    cantidad = Decimal(str(valor))
+decimal.InvalidOperation: [<class 'decimal.ConversionSyntax'>]
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/ipykernel_7403/1010448456.py", line 37, in <cell line: 0>
+    detalle = operar()
+  File "/tmp/ipykernel_7403/1010448456.py", line 8, in <lambda>
+    ("Tarifa ilegible", lambda: s.registrar(s.servicios, Equipo("E0", "abc")), DatoInvalido),
+                                                         ~~~~~~^^^^^^^^^^^^^
+  File "/tmp/ipykernel_7403/759950006.py", line 4, in __init__
+    self.tarifa = numero(tarifa, "tarifa")
+                  ~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/tmp/ipykernel_7403/3911494418.py", line 37, in numero
+    raise DatoInvalido(f"{campo} debe ser numérico.") from causa
+DatoInvalido: tarifa debe ser numérico.
+2026-11-21 22:45:18,323 | INFO | 06 Registrar equipo | Equipo E1
+2026-11-21 22:45:18,323 | INFO | 07 Registrar asesoría | Asesoría A1
+2026-11-21 22:45:18,323 | ERROR | 08 Falta la tarifa
+Traceback (most recent call last):
+  File "/tmp/ipykernel_7403/1010448456.py", line 37, in <cell line: 0>
+    detalle = operar()
+  File "/tmp/ipykernel_7403/1010448456.py", line 11, in <lambda>
+    ("Falta la tarifa", lambda: Sala("S2"), TypeError),
+                                ~~~~^^^^^^
+TypeError: Servicio.__init__() missing 1 required positional argument: 'tarifa'
+2026-11-21 22:45:18,324 | ERROR | 09 Cliente inexistente
+Traceback (most recent call last):
+  File "/tmp/ipykernel_7403/1010448456.py", line 37, in <cell line: 0>
+    detalle = operar()
+  File "/tmp/ipykernel_7403/1010448456.py", line 12, in <lambda>
+    ("Cliente inexistente", lambda: s.reservar("R0", "C9", "S1", 2), OperacionInvalida),
+                                    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/ipykernel_7403/1583975118.py", line 20, in reservar
+    cliente = self.buscar(self.clientes, cliente_id)
+  File "/tmp/ipykernel_7403/1583975118.py", line 17, in buscar
+    raise OperacionInvalida(f"No se encontró el código {codigo}.")
+OperacionInvalida: No se encontró el código C9.
+2026-11-21 22:45:18,325 | INFO | 10 Reservar sala | R1 · Sala S1 · 40000.00 COP · confirmada
+2026-11-21 22:45:18,325 | ERROR | 11 Sala ocupada
+Traceback (most recent call last):
+  File "/tmp/ipykernel_7403/1010448456.py", line 37, in <cell line: 0>
+    detalle = operar()
+  File "/tmp/ipykernel_7403/1010448456.py", line 14, in <lambda>
+    ("Sala ocupada", lambda: s.reservar("R2", "C1", "S1", 1), OperacionInvalida),
+                             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/ipykernel_7403/1583975118.py", line 24, in reservar
+    raise OperacionInvalida("El servicio está ocupado.")
+OperacionInvalida: El servicio está ocupado.
+2026-11-21 22:45:18,325 | INFO | 12 Cancelar sala | R1 · Sala S1 · 40000.00 COP · cancelada
+2026-11-21 22:45:18,325 | ERROR | 13 Procesar tras cancelar
+Traceback (most recent call last):
+  File "/tmp/ipykernel_7403/1010448456.py", line 37, in <cell line: 0>
+    detalle = operar()
+  File "/tmp/ipykernel_7403/1010448456.py", line 16, in <lambda>
+    ("Procesar tras cancelar", lambda: s.cambiar_estado("R1", "procesar"), OperacionInvalida),
+                                       ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/tmp/ipykernel_7403/1583975118.py", line 34, in cambiar_estado
+    reserva.procesar()
+    ~~~~~~~~~~~~~~~~^^
+  File "/tmp/ipykernel_7403/2751075912.py", line 26, in procesar
+    raise OperacionInvalida("Solo se procesa una reserva confirmada.")
+OperacionInvalida: Solo se procesa una reserva confirmada.
+2026-11-21 22:45:18,326 | INFO | 14 Reutilizar sala liberada | R2 · Sala S1 · 20000.00 COP · confirmada
+2026-11-21 22:45:18,326 | INFO | 15 Completar servicio de sala | R2 · Sala S1 · 20000.00 COP · procesada
+2026-11-21 22:45:18,326 | ERROR | 16 Asesoría demasiado larga
+Traceback (most recent call last):
+  File "/tmp/ipykernel_7403/1010448456.py", line 37, in <cell line: 0>
+    detalle = operar()
+  File "/tmp/ipykernel_7403/1010448456.py", line 19, in <lambda>
+    ("Asesoría demasiado larga", lambda: s.reservar("R3", "C1", "A1", 5), DatoInvalido),
+                                         ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/ipykernel_7403/1583975118.py", line 25, in reservar
+    reserva = Reserva(codigo, cliente, servicio, horas)
+  File "/tmp/ipykernel_7403/2751075912.py", line 7, in __init__
+    self.total = servicio.costo(horas)
+                 ~~~~~~~~~~~~~~^^^^^^^
+  File "/tmp/ipykernel_7403/759950006.py", line 18, in costo
+    self.validar(horas)
+    ~~~~~~~~~~~~^^^^^^^
+  File "/tmp/ipykernel_7403/759950006.py", line 54, in validar
+    raise DatoInvalido("Una asesoría admite hasta 4 horas.")
+DatoInvalido: Una asesoría admite hasta 4 horas.
+2026-11-21 22:45:18,327 | INFO | 17 Reservar equipo | R3 · Equipo E1 · 21000.00 COP · confirmada
+2026-11-21 22:45:18,327 | ERROR | 18 Descuento superior al total
+Traceback (most recent call last):
+  File "/tmp/ipykernel_7403/1010448456.py", line 37, in <cell line: 0>
+    detalle = operar()
+  File "/tmp/ipykernel_7403/1010448456.py", line 21, in <lambda>
+    ("Descuento superior al total", lambda: s.buscar(s.servicios, "E1").costo(2, descuento=101), DatoInvalido),
+                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/tmp/ipykernel_7403/759950006.py", line 22, in costo
+    raise DatoInvalido("Los porcentajes deben estar entre 0 y 100.")
+DatoInvalido: Los porcentajes deben estar entre 0 y 100.
+2026-11-21 22:45:18,328 | INFO | 19 Cotizar equipo con ajustes | 22491.00
+2026-11-21 22:45:18,328 | INFO | 20 Reservar asesoría después del error | R4 · Asesoría A1 · 100000.00 COP · confirmada
